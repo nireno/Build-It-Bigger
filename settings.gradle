@@ -1,1 +1,1 @@
-include ':app', ':oneliners'
+include ':app', ':oneliners', ':jokeslibrary'
