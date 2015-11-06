@@ -1,12 +1,15 @@
 package com.udacity.gradle.builditbigger;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class MainActivity extends ActionBarActivity {
+import com.example.niren.jokeslibrary.JokeActivity;
+
+public class MainActivity extends ActionBarActivity implements ResponseHandler {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +41,13 @@ public class MainActivity extends ActionBarActivity {
     }
 
     public void tellJoke(View view){
-        new EndpointsAsyncTask().execute(this);
+        new EndpointsAsyncTask(this).execute(this);
     }
 
+    public void handleResponse(String result){
+        Intent i = new Intent(this, JokeActivity.class);
+        i.putExtra(Intent.EXTRA_TEXT, result);
+        startActivity(i);
+    }
 
 }
