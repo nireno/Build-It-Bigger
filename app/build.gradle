@@ -18,13 +18,24 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+        free {
+            applicationId "com.buildsystemexample.app.free"
+        }
+        paid {
+            applicationId "com.buildsystemexample.app.paid"
+        }
+    }
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    // Added for AdMob
-    compile project(':jokeslibrary')
+
     compile 'com.android.support:appcompat-v7:23.1.0'
-    compile 'com.google.android.gms:play-services:8.1.0'
+    compile project(':jokeslibrary')
     compile project(path: ':backend', configuration: 'android-endpoints')
+
+    // Added for AdMob
+    freeCompile 'com.google.android.gms:play-services:8.1.0'
+
 }
