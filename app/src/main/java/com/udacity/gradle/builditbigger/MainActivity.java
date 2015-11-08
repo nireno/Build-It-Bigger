@@ -6,11 +6,12 @@ import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.example.niren.jokeslibrary.JokeActivity;
 
 public class MainActivity extends ActionBarActivity implements ResponseHandler {
-
+    ProgressBar mProgressBar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,12 +42,15 @@ public class MainActivity extends ActionBarActivity implements ResponseHandler {
     }
 
     public void tellJoke(View view){
+        mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
+        mProgressBar.setVisibility(View.VISIBLE);
         new EndpointsAsyncTask(this).execute(this);
     }
 
     public void handleResponse(String result){
         Intent i = new Intent(this, JokeActivity.class);
         i.putExtra(Intent.EXTRA_TEXT, result);
+        mProgressBar.setVisibility(View.GONE);
         startActivity(i);
     }
 
