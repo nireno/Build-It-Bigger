@@ -28,7 +28,7 @@ class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     protected String doInBackground(String... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
-                    .setRootUrl("https://and-build-it-bigger.appspot.com/_ah/api/");
+                    .setRootUrl(context.getString(R.string.backend_url));
             // end options for devappserver
 
             myApiService = builder.build();
