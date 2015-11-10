@@ -39,3 +39,12 @@ dependencies {
     freeCompile 'com.google.android.gms:play-services:8.1.0'
 
 }
+
+tasks["connectedCheck"].shouldRunAfter ":backend:appengineRun"
+
+task biggerBuild {
+    group = 'udacity'
+    description = 'Build it Bigger'
+    dependsOn = [":backend:appengineRun", "connectedCheck"]
+    finalizedBy ":backend:appengineStop"
+}
