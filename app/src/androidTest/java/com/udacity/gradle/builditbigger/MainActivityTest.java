@@ -1,5 +1,7 @@
 package com.udacity.gradle.builditbigger;
 
+import android.app.Activity;
+import android.content.Context;
 import android.test.ActivityInstrumentationTestCase2;
 import android.test.suitebuilder.annotation.MediumTest;
 import android.util.Log;
@@ -29,13 +31,16 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
     @MediumTest
     public void testEndpointsAsyncTask () {
+        final Activity context = this.getActivity();
+        final ResponseHandler responseHandler = this;
+
         try {
             runTestOnUiThread(new Runnable() {
 
                 @Override
                 public void run() {
                     Log.d("hi", "making request");
-                    new EndpointsAsyncTask(MainActivityTest.this).execute(this);
+                    new EndpointsAsyncTask(context, responseHandler).execute();
                 }
             });
         } catch(Throwable t){

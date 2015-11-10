@@ -44,7 +44,7 @@ public class MainActivity extends ActionBarActivity implements ResponseHandler {
     public void tellJoke(View view){
         mProgressBar = (ProgressBar) findViewById(R.id.progressBar);
         mProgressBar.setVisibility(View.VISIBLE);
-        new EndpointsAsyncTask(this).execute(this);
+        new EndpointsAsyncTask(this, this).execute();
     }
 
     public void handleResponse(String result){

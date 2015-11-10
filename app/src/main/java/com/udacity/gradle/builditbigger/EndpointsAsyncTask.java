@@ -13,18 +13,19 @@ import java.io.IOException;
 /**
  * Created by niren on 10/25/15.
  */
-class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
+class EndpointsAsyncTask extends AsyncTask<String, Void, String> {
     public static final String JOKE_ERROR = "";
     private static MyApi myApiService = null;
     private Context context;
     private ResponseHandler responseHandler;
 
-    public EndpointsAsyncTask(ResponseHandler handler){
+    public EndpointsAsyncTask(Context context, ResponseHandler handler){
         this.responseHandler = handler;
+        this.context = context;
     }
 
     @Override
-    protected String doInBackground(Context... params) {
+    protected String doInBackground(String... params) {
         if(myApiService == null) {  // Only do this once
             MyApi.Builder builder = new MyApi.Builder(AndroidHttp.newCompatibleTransport(), new AndroidJsonFactory(), null)
                     .setRootUrl("https://and-build-it-bigger.appspot.com/_ah/api/");
@@ -32,8 +33,6 @@ class EndpointsAsyncTask extends AsyncTask<Context, Void, String> {
 
             myApiService = builder.build();
         }
-
-        context = params[0];
 
         try {
             return myApiService.getJoke().execute().getData();
