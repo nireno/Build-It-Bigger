@@ -25,7 +25,6 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        Log.d("hi", "setting up");
         setActivityInitialTouchMode(true);
     }
 
@@ -39,28 +38,23 @@ public class MainActivityTest extends ActivityInstrumentationTestCase2<MainActiv
 
                 @Override
                 public void run() {
-                    Log.d("hi", "making request");
                     new EndpointsAsyncTask(context, responseHandler).execute();
                 }
             });
         } catch(Throwable t){
-            Log.d("hi", "something thrown");
             assertTrue(mRecievedJoke);
         }
 
         try {
-            Log.d("hi", "waiting for response");
             mSignal.await(10, TimeUnit.SECONDS);
             assertTrue(mRecievedJoke);
         } catch(InterruptedException e) {
-            Log.d("hi", "interrupted");
             assertTrue(mRecievedJoke);
         }
     }
 
     @Override
     public void handleResponse(String s) {
-        Log.d("hi", "handling response: " + s);
         if(!EndpointsAsyncTask.JOKE_ERROR.equals(s)){
             mRecievedJoke = true;
         }
