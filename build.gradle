@@ -17,3 +17,12 @@ allprojects {
         jcenter()
     }
 }
+
+project(":app").task(":connectedCheck").shouldRunAfter ":backend:appengineRun"
+
+task biggerBuild {
+    group = 'udacity'
+    description = 'Build it Bigger'
+    dependsOn = [":backend:appengineRun", ":app:connectedCheck"]
+    finalizedBy ":backend:appengineStop"
+}
